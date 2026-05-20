@@ -10,8 +10,8 @@
 ## Quick install
 
 ```bash
-git clone https://github.com/lumincui/cc-status-bg.git
-cd cc-status-bg
+git clone https://github.com/lumincui/cc-iterm2-color.git
+cd cc-iterm2-color
 bash install.sh                       # both hooks
 # or pick a subset:
 bash install.sh mark-input            # only the prompt marker
@@ -26,7 +26,7 @@ Restart your Claude Code session.
    `hooks/<name>.sh` → `~/.claude/hooks/<name>.sh` (mode 0755), for each selected hook.
 
 2. **Backs up settings**
-   `~/.claude/settings.json` → `~/.claude/settings.json.before-cc-status-bg-<timestamp>.bak`
+   `~/.claude/settings.json` → `~/.claude/settings.json.before-cc-iterm2-color-<timestamp>.bak`
 
 3. **Merges hook entries** into `~/.claude/settings.json`. The installer is idempotent — running it twice will not duplicate entries. Existing hooks pointing at other scripts are preserved.
 
@@ -149,6 +149,6 @@ bash uninstall.sh status-bg
 Or restore the pre-install backup directly:
 
 ```bash
-cp ~/.claude/settings.json.before-cc-status-bg-<timestamp>.bak ~/.claude/settings.json
+cp ~/.claude/settings.json.before-cc-iterm2-color-<timestamp>.bak ~/.claude/settings.json
 rm ~/.claude/hooks/status-bg.sh ~/.claude/hooks/mark-input.sh
 ```

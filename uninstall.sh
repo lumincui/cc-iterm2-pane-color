@@ -1,5 +1,5 @@
 #!/bin/bash
-# Uninstall cc-status-bg hooks.
+# Uninstall cc-iterm2-color hooks.
 # - Removes hook entries from ~/.claude/settings.json
 # - Deletes the hook scripts
 # - Backs up settings.json before modifying
@@ -38,7 +38,7 @@ if [ ! -f "$SETTINGS" ]; then
     exit 1
 fi
 
-BACKUP="$SETTINGS.before-cc-status-bg-uninstall-$(date +%Y%m%d-%H%M%S).bak"
+BACKUP="$SETTINGS.before-cc-iterm2-color-uninstall-$(date +%Y%m%d-%H%M%S).bak"
 cp "$SETTINGS" "$BACKUP"
 green "✓ Backed up settings.json to $BACKUP"
 

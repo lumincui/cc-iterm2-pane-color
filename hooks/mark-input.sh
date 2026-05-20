@@ -1,5 +1,5 @@
 #!/bin/bash
-# cc-status-bg / mark-input
+# cc-iterm2-color / mark-input
 # Drop an iTerm2 SetMark on every UserPromptSubmit so you can jump
 # between your own prompts in scrollback with Cmd+Shift+Up / Down,
 # and (if you enable mark indicators in iTerm2) see a gutter triangle

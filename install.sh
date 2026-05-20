@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install cc-status-bg hooks into ~/.claude.
+# Install cc-iterm2-color hooks into ~/.claude.
 # - Copies selected hook scripts to ~/.claude/hooks/
 # - Merges hook entries into ~/.claude/settings.json (preserves existing hooks)
 # - Idempotent: safe to run multiple times
@@ -64,7 +64,7 @@ for name in "${selected[@]}"; do
     installed_paths+=("$name=$dst")
 done
 
-BACKUP="$SETTINGS.before-cc-status-bg-$(date +%Y%m%d-%H%M%S).bak"
+BACKUP="$SETTINGS.before-cc-iterm2-color-$(date +%Y%m%d-%H%M%S).bak"
 cp "$SETTINGS" "$BACKUP"
 green "✓ Backed up settings.json to $BACKUP"
 

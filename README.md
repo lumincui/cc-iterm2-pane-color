@@ -1,4 +1,4 @@
-# cc-status-bg
+# cc-iterm2-color
 
 > Color-code your iTerm2 panes by Claude Code state, and drop a navigable mark on every prompt you submit. **Green = ready to sign off. Orange = needs your input. Default = still working.** Plus `Cmd+Shift+↑/↓` to jump between your own messages in a long session. Triage a wall of parallel agents at a glance, and never lose track of what you typed — no daemon, no Python runtime, just shell hooks.
 
@@ -55,8 +55,8 @@ Claude Code event ──▶ hook script ──▶ writes OSC to /dev/<parent_tty
 ## Install
 
 ```bash
-git clone https://github.com/lumincui/cc-status-bg.git
-cd cc-status-bg
+git clone https://github.com/lumincui/cc-iterm2-color.git
+cd cc-iterm2-color
 bash install.sh                       # both hooks
 # or
 bash install.sh mark-input            # only the prompt marker

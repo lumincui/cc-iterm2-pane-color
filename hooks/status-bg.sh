@@ -1,5 +1,5 @@
 #!/bin/bash
-# cc-status-bg
+# cc-iterm2-color
 # Map Claude Code lifecycle events to terminal background color.
 #
 # State        Trigger                                              Color
