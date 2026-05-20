@@ -1,18 +1,18 @@
 # cc-iterm2-pane-color
 
-> Claude Code → iTerm2 pane background color. Green for idle, orange for attention. No daemon, no Python runtime — just a shell script and a few hook lines.
+> Color-code your iTerm2 panes by Claude Code state. **Green = ready to sign off. Orange = needs your input. Default = still working.** Triage a wall of parallel agents at a glance — no daemon, no Python runtime, just a shell hook.
 
-When you run multiple Claude Code sessions across iTerm2 panes, the panes look identical. You can't tell at a glance which one finished, which one is waiting for an answer, and which one is still chugging.
+Running multiple Claude Code sessions in parallel is how you scale yourself — but the panes look identical, so you can't tell which session is **done**, which is **blocked on you**, and which is **still chugging**. You tab through them one by one and miss the one that's been waiting on a permission prompt for ten minutes.
 
-This hook tints each pane's **background** based on Claude Code's lifecycle events:
+This hook fixes that by tinting each pane's **background** based on Claude Code's lifecycle events. One glance across the grid and you know exactly where to act:
 
-| State | Color | Trigger |
-|---|---|---|
-| 🟢 **Idle** | dark green | Claude finished its turn |
-| 🟠 **Attention** | dark orange | `PermissionRequest`, or `AskUserQuestion` is waiting |
-| _normal_ | _your default profile bg_ | running, initial, or after you respond |
+| State | Color | When it triggers | What to do |
+|---|---|---|---|
+| 🟢 **Ready to sign off** | dark green | Claude finished its turn (`Stop`) | Review the diff, accept or push back |
+| 🟠 **Needs you** | dark orange | Permission prompt, or `AskUserQuestion` is waiting | Answer it — Claude is blocked |
+| _Working_ | _your default profile bg_ | Running, just launched, or right after you reply | Leave it alone |
 
-![Four-pane iTerm2 grid: idle panes tinted dark green, the pane waiting on AskUserQuestion tinted dark orange, the running pane left at the default background.](docs/screenshot.jpg)
+![Four-pane iTerm2 grid demonstrating the colors: two green panes are finished and waiting to be reviewed, one orange pane is blocked on a multi-choice question, one default-colored pane is still actively working.](docs/screenshot.jpg)
 
 Subtle by default — the colors are dark and low-saturation so they don't fight your theme. Tune in one line if you want them louder.
 
