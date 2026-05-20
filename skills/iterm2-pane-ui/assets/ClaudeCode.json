@@ -1,0 +1,75 @@
+{
+  "Profiles": [
+    {
+      "Name": "ClaudeCode",
+      "Guid": "claude-code-pane-ui",
+      "Dynamic Profile Parent Name": "Default",
+
+      "Window Type": 12,
+
+      "Show Status Bar": true,
+      "Status Bar Layout": {
+        "advanced configuration": {
+          "algorithm": 0,
+          "auto-rainbow style": 0,
+          "font": ".SFNS-Regular 12",
+          "remove empty components": false
+        },
+        "components": [
+          {
+            "class": "iTermStatusBarWorkingDirectoryComponent",
+            "configuration": {
+              "knobs": {
+                "shared font": "",
+                "base: compression resistance": 1,
+                "base: priority": 5,
+                "minwidth": 0,
+                "maxwidth": 1.0e10
+              },
+              "layout advanced configuration dictionary value": {
+                "algorithm": 0,
+                "auto-rainbow style": 0,
+                "remove empty components": false
+              }
+            }
+          },
+          {
+            "class": "iTermStatusBarGitComponent",
+            "configuration": {
+              "knobs": {
+                "shared font": "",
+                "base: compression resistance": 1,
+                "base: priority": 5,
+                "minwidth": 0,
+                "maxwidth": 1.0e10
+              },
+              "layout advanced configuration dictionary value": {
+                "algorithm": 0,
+                "auto-rainbow style": 0,
+                "remove empty components": false
+              }
+            }
+          },
+          {
+            "class": "iTermStatusBarSwiftyStringComponent",
+            "configuration": {
+              "knobs": {
+                "expression": "\\(session.name)",
+                "shared font": "",
+                "base: compression resistance": 1,
+                "base: priority": 5,
+                "minwidth": 0,
+                "maxwidth": 1.0e10
+              },
+              "layout advanced configuration dictionary value": {
+                "algorithm": 0,
+                "auto-rainbow style": 0,
+                "remove empty components": false
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
