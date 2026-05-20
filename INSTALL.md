@@ -10,7 +10,7 @@
 ## Quick install
 
 ```bash
-git clone https://github.com/vincenthcui/cc-iterm2-pane-color.git
+git clone https://github.com/lumincui/cc-iterm2-pane-color.git
 cd cc-iterm2-pane-color
 bash install.sh
 ```
