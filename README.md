@@ -12,6 +12,8 @@ This hook tints each pane's **background** based on Claude Code's lifecycle even
 | 🟠 **Attention** | dark orange | `PermissionRequest`, or `AskUserQuestion` is waiting |
 | _normal_ | _your default profile bg_ | running, initial, or after you respond |
 
+![Four-pane iTerm2 grid: idle panes tinted dark green, the pane waiting on AskUserQuestion tinted dark orange, the running pane left at the default background.](docs/screenshot.jpg)
+
 Subtle by default — the colors are dark and low-saturation so they don't fight your theme. Tune in one line if you want them louder.
 
 ## How it works
