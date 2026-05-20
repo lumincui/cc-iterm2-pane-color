@@ -62,7 +62,7 @@ Two approaches, pick one based on scope:
 
 ## C. Stop dimming inactive split panes
 
-By default iTerm2 grays out non-focused splits — distracting in multi-pane workflows like this repo's pane-color hook.
+By default iTerm2 grays out non-focused splits — distracting in multi-pane workflows like this repo's status-bg hook.
 
 ```bash
 defaults write com.googlecode.iterm2 DimInactiveSplitPanes -bool false
@@ -86,4 +86,4 @@ Restart iTerm2. GUI equivalent: Preferences → Appearance → Dimming.
 
 ## Why these three together
 
-A user setting up the [`cc-iterm2-pane-color`](../../README.md) hook typically wants every pane to be self-identifying: the background tinted by Claude Code state, a label up top showing what each pane is doing, and no surrounding chrome stealing vertical space. The native pane title bar is the obvious place to put a label but cannot be styled — so the status bar takes over, the window title bar comes off, and inactive dimming is disabled so all panes stay equally readable.
+A user setting up the [`cc-status-bg`](../../README.md) hook typically wants every pane to be self-identifying: the background tinted by Claude Code state, a label up top showing what each pane is doing, and no surrounding chrome stealing vertical space. The native pane title bar is the obvious place to put a label but cannot be styled — so the status bar takes over, the window title bar comes off, and inactive dimming is disabled so all panes stay equally readable.

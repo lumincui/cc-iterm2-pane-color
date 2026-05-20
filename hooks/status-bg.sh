@@ -1,6 +1,6 @@
 #!/bin/bash
-# cc-iterm2-pane-color
-# Map Claude Code lifecycle events to iTerm2 pane background color.
+# cc-status-bg
+# Map Claude Code lifecycle events to terminal background color.
 #
 # State        Trigger                                              Color
 # ----------   --------------------------------------------------   --------
@@ -12,12 +12,12 @@
 # initial      SessionStart / SessionEnd / PermissionDenied         reset
 # other        any other event                                      untouched
 #
-# Debug log: tail -f $TMPDIR/claude-pane-color.log
+# Debug log: tail -f $TMPDIR/claude-status-bg.log
 
 readonly GREEN=$'\e]11;#0a2418\e\\'
 readonly ORANGE=$'\e]11;#502508\e\\'
 readonly RESET=$'\e]111\e\\'
-readonly LOG="${TMPDIR:-/tmp}/claude-pane-color.log"
+readonly LOG="${TMPDIR:-/tmp}/claude-status-bg.log"
 
 input=$(cat)
 [[ "$input" =~ \"hook_event_name\"[[:space:]]*:[[:space:]]*\"([^\"]+)\" ]] || exit 0

@@ -1,12 +1,12 @@
 #!/bin/bash
-# Uninstall cc-iterm2-pane-color.
+# Uninstall cc-status-bg.
 # - Removes hook entries from ~/.claude/settings.json
 # - Deletes the hook script
 # - Backs up settings.json before modifying
 
 set -euo pipefail
 
-TARGET_HOOK="$HOME/.claude/hooks/pane-color.sh"
+TARGET_HOOK="$HOME/.claude/hooks/status-bg.sh"
 SETTINGS="$HOME/.claude/settings.json"
 
 red()    { printf '\033[31m%s\033[0m\n' "$*"; }
@@ -18,7 +18,7 @@ if [ ! -f "$SETTINGS" ]; then
     exit 1
 fi
 
-BACKUP="$SETTINGS.before-cc-pane-color-uninstall-$(date +%Y%m%d-%H%M%S).bak"
+BACKUP="$SETTINGS.before-cc-status-bg-uninstall-$(date +%Y%m%d-%H%M%S).bak"
 cp "$SETTINGS" "$BACKUP"
 green "✓ Backed up settings.json to $BACKUP"
 

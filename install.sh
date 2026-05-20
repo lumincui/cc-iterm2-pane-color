@@ -1,6 +1,6 @@
 #!/bin/bash
-# Install cc-iterm2-pane-color into ~/.claude.
-# - Copies hooks/pane-color.sh to ~/.claude/hooks/
+# Install cc-status-bg into ~/.claude.
+# - Copies hooks/status-bg.sh to ~/.claude/hooks/
 # - Merges hook entries into ~/.claude/settings.json (preserves existing hooks)
 # - Idempotent: safe to run multiple times
 # - Backs up settings.json before modifying
@@ -8,8 +8,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCE_HOOK="$SCRIPT_DIR/hooks/pane-color.sh"
-TARGET_HOOK="$HOME/.claude/hooks/pane-color.sh"
+SOURCE_HOOK="$SCRIPT_DIR/hooks/status-bg.sh"
+TARGET_HOOK="$HOME/.claude/hooks/status-bg.sh"
 SETTINGS="$HOME/.claude/settings.json"
 
 red()    { printf '\033[31m%s\033[0m\n' "$*"; }
@@ -36,7 +36,7 @@ cp "$SOURCE_HOOK" "$TARGET_HOOK"
 chmod +x "$TARGET_HOOK"
 green "✓ Installed hook script to $TARGET_HOOK"
 
-BACKUP="$SETTINGS.before-cc-pane-color-$(date +%Y%m%d-%H%M%S).bak"
+BACKUP="$SETTINGS.before-cc-status-bg-$(date +%Y%m%d-%H%M%S).bak"
 cp "$SETTINGS" "$BACKUP"
 green "✓ Backed up settings.json to $BACKUP"
 
@@ -95,4 +95,4 @@ PY
 green ""
 green "✓ Installation complete."
 yellow "→ Restart your Claude Code session for hooks to take effect."
-yellow "→ Run \`tail -f \$TMPDIR/claude-pane-color.log\` to verify events fire."
+yellow "→ Run \`tail -f \$TMPDIR/claude-status-bg.log\` to verify events fire."

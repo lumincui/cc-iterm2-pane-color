@@ -1,4 +1,4 @@
-# cc-iterm2-pane-color
+# cc-status-bg
 
 > Color-code your iTerm2 panes by Claude Code state. **Green = ready to sign off. Orange = needs your input. Default = still working.** Triage a wall of parallel agents at a glance — no daemon, no Python runtime, just a shell hook.
 
@@ -19,7 +19,7 @@ Subtle by default — the colors are dark and low-saturation so they don't fight
 ## How it works
 
 ```
-Claude Code event ──▶ pane-color.sh ──▶ writes OSC 11 to /dev/<parent_tty>
+Claude Code event ──▶ status-bg.sh ──▶ writes OSC 11 to /dev/<parent_tty>
                                          │
                                          ▼
                                     iTerm2 reads pty, parses OSC,
@@ -34,13 +34,13 @@ Claude Code event ──▶ pane-color.sh ──▶ writes OSC 11 to /dev/<paren
 ## Install
 
 ```bash
-git clone https://github.com/lumincui/cc-iterm2-pane-color.git
-cd cc-iterm2-pane-color
+git clone https://github.com/lumincui/cc-status-bg.git
+cd cc-status-bg
 bash install.sh
 ```
 
 The installer:
-1. Copies `hooks/pane-color.sh` to `~/.claude/hooks/`
+1. Copies `hooks/status-bg.sh` to `~/.claude/hooks/`
 2. **Merges** entries into `~/.claude/settings.json` — your existing hooks are preserved
 3. Backs up `settings.json` to a timestamped `.bak` before writing
 
@@ -50,7 +50,7 @@ Detailed steps in [INSTALL.md](INSTALL.md).
 
 ## Configure colors
 
-Edit `~/.claude/hooks/pane-color.sh`, top of file:
+Edit `~/.claude/hooks/status-bg.sh`, top of file:
 
 ```bash
 readonly GREEN=$'\e]11;#0a2418\e\\'   # idle
@@ -83,7 +83,7 @@ Cmd-click any pane → background resets to your profile default. iTerm2 spawns 
 Tail the log and trigger a turn:
 
 ```bash
-tail -f "$TMPDIR/claude-pane-color.log"
+tail -f "$TMPDIR/claude-status-bg.log"
 ```
 
 You should see lines like:

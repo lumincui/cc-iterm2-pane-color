@@ -10,8 +10,8 @@
 ## Quick install
 
 ```bash
-git clone https://github.com/lumincui/cc-iterm2-pane-color.git
-cd cc-iterm2-pane-color
+git clone https://github.com/lumincui/cc-status-bg.git
+cd cc-status-bg
 bash install.sh
 ```
 
@@ -20,10 +20,10 @@ Restart your Claude Code session.
 ## What the installer does
 
 1. **Copies the hook**
-   `hooks/pane-color.sh` → `~/.claude/hooks/pane-color.sh` (mode 0755)
+   `hooks/status-bg.sh` → `~/.claude/hooks/status-bg.sh` (mode 0755)
 
 2. **Backs up settings**
-   `~/.claude/settings.json` → `~/.claude/settings.json.before-cc-pane-color-<timestamp>.bak`
+   `~/.claude/settings.json` → `~/.claude/settings.json.before-cc-status-bg-<timestamp>.bak`
 
 3. **Merges hook entries** into `~/.claude/settings.json`. The installer is idempotent — running it twice will not duplicate entries. Existing hooks pointing at other scripts are preserved.
 
@@ -50,19 +50,19 @@ If you'd rather not run the installer, do these three steps:
 
 ```bash
 mkdir -p ~/.claude/hooks
-cp hooks/pane-color.sh ~/.claude/hooks/
-chmod +x ~/.claude/hooks/pane-color.sh
+cp hooks/status-bg.sh ~/.claude/hooks/
+chmod +x ~/.claude/hooks/status-bg.sh
 ```
 
 ### 2. Edit `~/.claude/settings.json`
 
-Add `bash '/Users/<you>/.claude/hooks/pane-color.sh'` to the `hooks` array of each event listed in the table above. Wrap in the standard Claude Code hook block format:
+Add `bash '/Users/<you>/.claude/hooks/status-bg.sh'` to the `hooks` array of each event listed in the table above. Wrap in the standard Claude Code hook block format:
 
 ```json
 "Stop": [
   {
     "hooks": [
-      { "type": "command", "command": "bash '/Users/<you>/.claude/hooks/pane-color.sh'" }
+      { "type": "command", "command": "bash '/Users/<you>/.claude/hooks/status-bg.sh'" }
     ]
   }
 ]
@@ -75,7 +75,7 @@ For `PreToolUse` and `PostToolUse`, use a separate block with `matcher: "AskUser
   {
     "matcher": "AskUserQuestion",
     "hooks": [
-      { "type": "command", "command": "bash '/Users/<you>/.claude/hooks/pane-color.sh'" }
+      { "type": "command", "command": "bash '/Users/<you>/.claude/hooks/status-bg.sh'" }
     ]
   }
 ]
@@ -90,7 +90,7 @@ The hook config is read at session start.
 Open a new Claude Code session and tail the log in another terminal:
 
 ```bash
-tail -f "$TMPDIR/claude-pane-color.log"
+tail -f "$TMPDIR/claude-status-bg.log"
 ```
 
 Trigger each state:
@@ -107,7 +107,7 @@ If you don't see colors changing, see [Troubleshooting](#troubleshooting).
 ## Troubleshooting
 
 **No log file is being written**
-The installer didn't take effect, or you didn't restart Claude Code. Check `~/.claude/settings.json` contains entries pointing at `pane-color.sh`, then open a fresh session.
+The installer didn't take effect, or you didn't restart Claude Code. Check `~/.claude/settings.json` contains entries pointing at `status-bg.sh`, then open a fresh session.
 
 **Log is being written but the pane color doesn't change**
 - Confirm your terminal honors `OSC 11`. Quick test in your shell:
@@ -115,7 +115,7 @@ The installer didn't take effect, or you didn't restart Claude Code. Check `~/.c
   printf '\e]11;#502508\e\\' ; sleep 2 ; printf '\e]111\e\\'
   ```
   If the background doesn't tint orange and reset, your terminal doesn't support `OSC 11`.
-- Check that `pane-color.sh` is executable: `ls -l ~/.claude/hooks/pane-color.sh`.
+- Check that `status-bg.sh` is executable: `ls -l ~/.claude/hooks/status-bg.sh`.
 
 **The `Stop` color (green) gets overridden to orange**
 You wired the hook to `Notification` somewhere. Remove that wiring — `Notification` fires for both idle and attention, and our installer deliberately avoids it. The clean route is `Stop` + `PermissionRequest` + `PreToolUse(AskUserQuestion)`.
@@ -134,6 +134,6 @@ bash uninstall.sh
 Or restore the pre-install backup directly:
 
 ```bash
-cp ~/.claude/settings.json.before-cc-pane-color-<timestamp>.bak ~/.claude/settings.json
-rm ~/.claude/hooks/pane-color.sh
+cp ~/.claude/settings.json.before-cc-status-bg-<timestamp>.bak ~/.claude/settings.json
+rm ~/.claude/hooks/status-bg.sh
 ```
