@@ -12,22 +12,27 @@
 ```bash
 git clone https://github.com/lumincui/cc-status-bg.git
 cd cc-status-bg
-bash install.sh
+bash install.sh                       # both hooks
+# or pick a subset:
+bash install.sh mark-input            # only the prompt marker
+bash install.sh status-bg             # only the background tinting
 ```
 
 Restart your Claude Code session.
 
 ## What the installer does
 
-1. **Copies the hook**
-   `hooks/status-bg.sh` → `~/.claude/hooks/status-bg.sh` (mode 0755)
+1. **Copies the hook script(s)**
+   `hooks/<name>.sh` → `~/.claude/hooks/<name>.sh` (mode 0755), for each selected hook.
 
 2. **Backs up settings**
    `~/.claude/settings.json` → `~/.claude/settings.json.before-cc-status-bg-<timestamp>.bak`
 
 3. **Merges hook entries** into `~/.claude/settings.json`. The installer is idempotent — running it twice will not duplicate entries. Existing hooks pointing at other scripts are preserved.
 
-   The following events get the script appended:
+   The events each script gets registered on:
+
+   **`status-bg.sh`**
 
    | Event | Matcher | Behavior |
    |---|---|---|
@@ -42,21 +47,28 @@ Restart your Claude Code session.
 
    For `PreToolUse` / `PostToolUse`, a **new matcher block scoped to `AskUserQuestion`** is added so the script doesn't fire on every tool call.
 
+   **`mark-input.sh`**
+
+   | Event | Matcher | Behavior |
+   |---|---|---|
+   | `UserPromptSubmit` | (any) | drop iTerm2 mark at cursor |
+
 ## Manual install
 
-If you'd rather not run the installer, do these three steps:
+If you'd rather not run the installer, do these three steps for each hook you want:
 
 ### 1. Copy the hook
 
 ```bash
 mkdir -p ~/.claude/hooks
-cp hooks/status-bg.sh ~/.claude/hooks/
-chmod +x ~/.claude/hooks/status-bg.sh
+cp hooks/status-bg.sh   ~/.claude/hooks/   # if you want the background tinting
+cp hooks/mark-input.sh  ~/.claude/hooks/   # if you want prompt marks
+chmod +x ~/.claude/hooks/*.sh
 ```
 
 ### 2. Edit `~/.claude/settings.json`
 
-Add `bash '/Users/<you>/.claude/hooks/status-bg.sh'` to the `hooks` array of each event listed in the table above. Wrap in the standard Claude Code hook block format:
+Add `bash '/Users/<you>/.claude/hooks/<name>.sh'` to the `hooks` array of each event listed in the tables above. Wrap in the standard Claude Code hook block format:
 
 ```json
 "Stop": [
@@ -87,22 +99,23 @@ The hook config is read at session start.
 
 ## Verify
 
-Open a new Claude Code session and tail the log in another terminal:
+Open a new Claude Code session and tail the logs in another terminal:
 
 ```bash
-tail -f "$TMPDIR/claude-status-bg.log"
+tail -f "$TMPDIR/claude-status-bg.log" "$TMPDIR/claude-mark-input.log"
 ```
 
 Trigger each state:
 
-| Action | Expected event in log | Expected color |
+| Action | Expected event in log | Expected effect |
 |---|---|---|
-| Send a prompt and wait for the response | `Stop` | 🟢 green |
-| Send a new prompt | `UserPromptSubmit` | reset to default |
-| Ask Claude to call `AskUserQuestion` (e.g. "ask me a multi-choice question") | `PreToolUse` | 🟠 orange |
-| Answer the question | `PostToolUse` | reset |
+| Send a prompt and wait for the response | `Stop` (status-bg) | 🟢 green |
+| Send a new prompt | `UserPromptSubmit` (both) | reset color + iTerm2 mark dropped |
+| Press `Cmd+Shift+↑` | — | cursor jumps to the previous mark |
+| Ask Claude to call `AskUserQuestion` (e.g. "ask me a multi-choice question") | `PreToolUse` (status-bg) | 🟠 orange |
+| Answer the question | `PostToolUse` (status-bg) | reset |
 
-If you don't see colors changing, see [Troubleshooting](#troubleshooting).
+If you don't see colors changing, see [Troubleshooting](#troubleshooting). If marks aren't navigable, enable **Preferences → Profiles → Terminal → "Show mark indicators"** and confirm `Cmd+Shift+↑`/`↓` isn't rebound in **Preferences → Keys**.
 
 ## Troubleshooting
 
@@ -128,12 +141,14 @@ You wired the hook to `Notification` somewhere. Remove that wiring — `Notifica
 ## Uninstall
 
 ```bash
-bash uninstall.sh
+bash uninstall.sh                       # remove both hooks
+bash uninstall.sh mark-input            # only one
+bash uninstall.sh status-bg
 ```
 
 Or restore the pre-install backup directly:
 
 ```bash
 cp ~/.claude/settings.json.before-cc-status-bg-<timestamp>.bak ~/.claude/settings.json
-rm ~/.claude/hooks/status-bg.sh
+rm ~/.claude/hooks/status-bg.sh ~/.claude/hooks/mark-input.sh
 ```
