@@ -89,7 +89,9 @@ HOOK_EVENTS = {
     },
     "mark-input": {
         "wide": ["UserPromptSubmit"],
-        "narrow": [],
+        "narrow": [
+            ("PostToolUse", "ExitPlanMode"),
+        ],
     },
 }
 

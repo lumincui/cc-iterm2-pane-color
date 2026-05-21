@@ -25,14 +25,19 @@ This hook fixes that by tinting each pane's **background** based on Claude Code'
 
 Subtle by default — the colors are dark and low-saturation so they don't fight your theme. Tune in one line if you want them louder.
 
-## mark-input — find your own prompts in scrollback
+## mark-input — find your own prompts (and plan updates) in scrollback
 
 In a long session the transcript fills with tool output and assistant replies, and the things **you typed** drown in the noise. Scrolling up to find "where did I ask about X" turns into a manual hunt.
 
-This hook drops an iTerm2 **mark** at the line where every `UserPromptSubmit` fires. iTerm2 then gives you two things for free:
+This hook drops an iTerm2 **mark** at two kinds of navigation-worthy lines:
 
-- **`Cmd+Shift+↑` / `Cmd+Shift+↓`** — jump to the previous / next mark. Each press takes you straight from one of your prompts to the next.
-- **Gutter triangle** (optional) — turn on **Preferences → Profiles → Terminal → "Show mark indicators"** and every mark gets a triangle in the left gutter, so all your prompts are visible at a glance when scrolling.
+- every `UserPromptSubmit` — the line where you typed.
+- every `● Updated plan` — when Claude calls `ExitPlanMode` after writing a plan.
+
+iTerm2 then gives you two things for free:
+
+- **`Cmd+Shift+↑` / `Cmd+Shift+↓`** — jump to the previous / next mark. Each press takes you straight from one of your prompts (or plan updates) to the next.
+- **Gutter triangle** (optional) — turn on **Preferences → Profiles → Terminal → "Show mark indicators"** and every mark gets a triangle in the left gutter, so all your anchors are visible at a glance when scrolling.
 
 > **Why not a loud colored banner instead?** That was the first idea, and it doesn't work: Claude Code's TUI repaints during streaming and clobbers any text written to the pty. Marks are stored in iTerm2's scrollback model rather than on screen, so they survive the redraws. The gutter triangle gives you the "loud visual" without fighting the renderer.
 
